@@ -2948,6 +2948,123 @@ a:focus-visible {
     animation: none !important;
   }
 }
+@media (min-width: 960px) {
+  .float-bar {
+    display: none;
+  }
+  .sub-bar {
+    padding-top: 22px;
+  }
+  .page {
+    max-width: 1240px;
+    gap: 22px;
+    padding-block: 12px 56px;
+  }
+  .page.narrow {
+    max-width: 820px;
+  }
+  .gutter {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .page-title {
+    font-size: 32px;
+    letter-spacing: -0.01em;
+  }
+  .dash {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 22px;
+    align-items: stretch;
+  }
+  .dash-title {
+    grid-column: 1 / -1;
+    order: -2;
+  }
+  .dash > .tiles {
+    grid-column: 1 / -1;
+    order: -1;
+    max-width: none;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .dash > .tiles .card.tile {
+    aspect-ratio: auto;
+    min-height: 132px;
+  }
+  .dash > .tiles .card.tile .v {
+    font-size: 44px;
+  }
+  .dash > .actions {
+    grid-column: 1;
+  }
+  .dash > .dash-lists {
+    display: contents;
+  }
+  .dash-upcoming {
+    grid-column: 2;
+  }
+  .dash-recent {
+    grid-column: 1 / -1;
+  }
+  .dash-recent .list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 8px;
+  }
+  .match-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .match-list > * {
+    min-width: 0;
+  }
+  .team-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    align-items: start;
+  }
+  .teams-bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .teams-bar .seg3 {
+    width: 100%;
+    max-width: 520px;
+  }
+  .teams-bar > .btn {
+    flex: none;
+  }
+  .page .grid.g3 {
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  }
+}
+@media (min-width: 960px) and (max-width: 1180px) {
+  .match-list,
+  .team-list {
+    grid-template-columns: 1fr;
+  }
+  .dash-recent .list {
+    grid-template-columns: 1fr;
+  }
+  .dash {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dash > .actions,
+  .dash-upcoming,
+  .dash-recent {
+    grid-column: 1;
+  }
+}
+@media (min-width: 1181px) {
+  .dash-recent .list > :nth-child(2) {
+    border-top: 0;
+  }
+}
 
     </style>
   </head>
@@ -15955,7 +16072,7 @@ a:focus-visible {
     /** E-mail público de contato para dúvidas e pedidos sobre dados (aparece em Privacidade e Termos). */
     contactEmail: "",
     /** Muda a cada versão publicada; aparece em Perfil para conferir qual versão está no ar. */
-    version: "2026-10-27c",
+    version: "2026-10-29b",
     slogan: "Seu campeonato. Sua hist\xF3ria. Sua vit\xF3ria.",
     demoMode: true,
     publicCodeLength: 12,
@@ -18271,7 +18388,7 @@ a:focus-visible {
     return /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "stack lg", children: [
       sections.map((s) => /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("section", { className: "stack sm", children: [
         /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "round-title", children: s.title }),
-        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "stack sm", children: s.matches.map((m) => /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(MatchCard, { match: m, teams: tm, champ, onOpen: () => setOpenId(m.id) }, m.id)) })
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "stack sm match-list", children: s.matches.map((m) => /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(MatchCard, { match: m, teams: tm, champ, onOpen: () => setOpenId(m.id) }, m.id)) })
       ] }, s.key)),
       open && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(MatchDetail, { match: open, champ, teams, players, onClose: () => setOpenId(null), onEdit: onEdit ? (m) => {
         setOpenId(null);
@@ -18641,25 +18758,28 @@ a:focus-visible {
       ] });
       return to ? /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Link, { to, className: `card tile tile-${tone}`, style: { textDecoration: "none" }, children: inner }) : /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { className: `card tile tile-${tone}`, children: inner });
     };
-    const matchRow = (x, finished) => /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(Link, { to: `/painel/campeonatos/${x.champ.id}/partidas`, className: "row", style: { textDecoration: "none", padding: "12px 18px", gap: 12 }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "grow stack", style: { gap: 4, minWidth: 0 }, children: [
+    const matchRow = (x, finished) => /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(Link, { to: `/painel/campeonatos/${x.champ.id}/partidas`, className: "stack match-row", style: { textDecoration: "none", padding: "12px 18px", gap: 6 }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "row between", style: { gap: 12 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "xs muted trunc", children: x.champ.name }),
-        /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: "row", style: { gap: 8 }, children: [
+        !finished && /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "xs muted num", style: { flex: "none" }, children: x.match.date ? `${fmtDateLong(x.match.date)}${x.match.time ? ` \xB7 ${x.match.time}` : ""}` : "Sem data" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "row", style: { gap: 12 }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: "row grow", style: { gap: 8, minWidth: 0 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Shield, { team: x.home, size: 22 }),
           /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "trunc bold", children: x.home?.name }),
           /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "muted", children: "\xD7" }),
           /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Shield, { team: x.away, size: 22 }),
           /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "trunc bold", children: x.away?.name })
+        ] }),
+        finished && /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("strong", { className: "display num", style: { fontSize: 18, flex: "none" }, children: [
+          x.match.homeScore,
+          " \u2013 ",
+          x.match.awayScore
         ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { className: "small num", style: { textAlign: "right", flex: "none" }, children: finished ? /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("strong", { className: "display", style: { fontSize: 18 }, children: [
-        x.match.homeScore,
-        " \u2013 ",
-        x.match.awayScore
-      ] }) : /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "muted", children: x.match.date ? `${fmtDateLong(x.match.date)}${x.match.time ? ` \xB7 ${x.match.time}` : ""}` : "Sem data" }) })
+      ] })
     ] }, x.match.id);
-    return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "page", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("h1", { className: "page-title", children: "Painel" }) }),
+    return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "page dash", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { className: "dash-title", children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("h1", { className: "page-title", children: "Painel" }) }),
       /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(NextActions, { summaries, upcoming, live, today }),
       /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "tiles", children: [
         tile(summaries.length, "Campeonatos criados", "trophy", "/painel/campeonatos/filtro/todos", "blue"),
@@ -18667,12 +18787,12 @@ a:focus-visible {
         tile(soon, "Come\xE7am em breve", "calendar", "/painel/campeonatos/filtro/breve", "yellow"),
         tile(pending, "Solicita\xE7\xF5es pendentes", "users", "/painel/campeonatos/filtro/pendentes", "purple")
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "grid g2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("section", { className: "card", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "grid g2 dash-lists", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("section", { className: "card dash-upcoming", children: [
           /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { className: "card-head", children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("h2", { children: "Pr\xF3ximas partidas" }) }),
           /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { className: "list", style: { paddingTop: 8 }, children: upcoming.length ? upcoming.map((x) => matchRow(x, false)) : /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("p", { className: "muted small pad", children: "Nenhuma partida agendada." }) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("section", { className: "card", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("section", { className: "card dash-recent", children: [
           /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { className: "card-head", children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("h2", { children: "\xDAltimos resultados" }) }),
           /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { className: "list", style: { paddingTop: 8 }, children: recent.length ? recent.map((x) => matchRow(x, true)) : /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("p", { className: "muted small pad", children: "Os resultados registrados aparecem aqui." }) })
         ] })
@@ -18947,7 +19067,7 @@ a:focus-visible {
     const approved = by("approved").length;
     const labels = { pending: "Pendentes", approved: "Aprovadas", rejected: "Recusadas" };
     return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "stack lg", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "stack", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "stack teams-bar", children: [
         /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "seg3", role: "tablist", "aria-label": "Status das equipes", children: ["pending", "approved", "rejected"].map((s) => /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("button", { role: "tab", "aria-selected": tab === s, className: tab === s ? "on" : "", onClick: () => setTab(s), children: [
           /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { children: labels[s] }),
           /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "num cnt", children: [
@@ -18963,7 +19083,7 @@ a:focus-visible {
         c.maxTeams,
         " equipes foi atingido. Novas solicita\xE7\xF5es ficam pendentes at\xE9 abrir uma vaga."
       ] }),
-      list.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "card", children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Empty, { icon: "users", title: tab === "pending" ? "Nenhuma solicita\xE7\xE3o pendente" : tab === "approved" ? "Nenhuma equipe aprovada" : "Nenhuma equipe recusada", children: tab === "pending" ? "Quando uma equipe se inscrever pelo link, ela aparece aqui para voc\xEA aprovar." : tab === "approved" ? "Aprove solicita\xE7\xF5es ou cadastre equipes diretamente." : "Equipes recusadas ficam guardadas aqui." }) }) : /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "stack", children: list.map((t) => /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(TeamCard, { t, v, players: v.players.filter((p) => p.teamId === t.id) }, t.id)) }),
+      list.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "card", children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Empty, { icon: "users", title: tab === "pending" ? "Nenhuma solicita\xE7\xE3o pendente" : tab === "approved" ? "Nenhuma equipe aprovada" : "Nenhuma equipe recusada", children: tab === "pending" ? "Quando uma equipe se inscrever pelo link, ela aparece aqui para voc\xEA aprovar." : tab === "approved" ? "Aprove solicita\xE7\xF5es ou cadastre equipes diretamente." : "Equipes recusadas ficam guardadas aqui." }) }) : /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "stack team-list", children: list.map((t) => /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(TeamCard, { t, v, players: v.players.filter((p) => p.teamId === t.id) }, t.id)) }),
       adding && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Modal, { wide: true, title: "Cadastrar equipe", onClose: () => setAdding(false), children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(TeamForm, { champ: c, submitLabel: "Cadastrar e aprovar", onCancel: () => setAdding(false), onSubmit: async (d) => {
         await api.addTeam(c.id, d);
         toast("Equipe cadastrada e aprovada.");
